@@ -1,0 +1,48 @@
+*
+{
+	box-sizing: border-box;
+}
+
+#gameBoard
+{
+	font-family: Arial, sans-serif;
+	display: inline-block;
+	width: 282px;
+	height: 282px;
+	margin: 0;
+	padding: 0;
+}
+
+.cell
+{
+	display: inline-block;
+	vertical-align: bottom;
+	width: 90px;
+	height: 90px;
+	text-align: center;
+	font-size: 80px;
+	line-height: 90px;
+	border: 3px solid #000;
+	margin: 0;
+	padding: 0;
+}
+
+#topRow .cell
+{
+	border-top: none;
+}
+
+#bottomRow .cell
+{
+	border-bottom: none;
+}
+
+.row .cell:first-child
+{
+	border-left: none;
+}
+
+.row .cell:last-child
+{
+	border-right: none;
+}
