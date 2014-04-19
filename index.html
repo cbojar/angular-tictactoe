@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en-us" data-ng-app="AngularTicTacToe">
+	<head>
+		<title>Angular Tic Tac Toe</title>
+		<link rel="stylesheet" href="css/style.css" />
+	</head>
+	<body>
+		<section data-ng-controller="TicTacToeController">
+			<div id="gameBoard">
+				<div class="row" id="topRow"><div class="cell">{{board.topLeft}}</div><div class="cell">{{board.topMiddle}}</div><div class="cell">{{board.topRight}}</div></div>
+				<div class="row" id="middleRow"><div class="cell">{{board.middleLeft}}</div><div class="cell">{{board.middleMiddle}}</div><div class="cell">{{board.middleRight}}</div></div>
+				<div class="row" id="bottomRow"><div class="cell">{{board.bottomLeft}}</div><div class="cell">{{board.bottomMiddle}}</div><div class="cell">{{board.bottomRight}}</div></div>
+			<div>
+		</section>
+		<script src="js/angular.min.js"></script>
+		<script>
+			var TicTacToeApp = angular.module("AngularTicTacToe", []);
+			TicTacToeApp.controller("TicTacToeController", function($scope) {
+				$scope.board = {
+					"topLeft": "O",
+					"topMiddle": "X",
+					"topRight": "",
+					"middleLeft": "X",
+					"middleMiddle": "O",
+					"middleRight": "X",
+					"bottomLeft": "",
+					"bottomMiddle": "X",
+					"bottomRight": "O"
+				};
+			});
+		</script>
+	</body>
+</html>
