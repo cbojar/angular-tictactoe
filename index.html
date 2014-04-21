@@ -7,26 +7,38 @@
 	<body>
 		<section data-ng-controller="TicTacToeController">
 			<div id="gameBoard">
-				<div class="row" id="topRow"><div class="cell">{{board.topLeft}}</div><div class="cell">{{board.topMiddle}}</div><div class="cell">{{board.topRight}}</div></div>
-				<div class="row" id="middleRow"><div class="cell">{{board.middleLeft}}</div><div class="cell">{{board.middleMiddle}}</div><div class="cell">{{board.middleRight}}</div></div>
-				<div class="row" id="bottomRow"><div class="cell">{{board.bottomLeft}}</div><div class="cell">{{board.bottomMiddle}}</div><div class="cell">{{board.bottomRight}}</div></div>
+				<div class="row" id="topRow"><div class="cell">{{board.getCell(0,0)}}</div><div class="cell">{{board.getCell(0,1)}}</div><div class="cell">{{board.getCell(0,2)}}</div></div>
+				<div class="row" id="middleRow"><div class="cell">{{board.getCell(1,0)}}</div><div class="cell">{{board.getCell(1,1)}}</div><div class="cell">{{board.getCell(1,2)}}</div></div>
+				<div class="row" id="bottomRow"><div class="cell">{{board.getCell(2,0)}}</div><div class="cell">{{board.getCell(2,1)}}</div><div class="cell">{{board.getCell(2,2)}}</div></div>
 			<div>
 		</section>
 		<script src="js/angular.min.js"></script>
 		<script>
+			"use strict";
+
+			var TicTacToeBoard = (function(){
+				function TicTacToeBoard() {
+					this.board = [
+						["", "", ""],
+						["", "", ""],
+						["", "", ""]
+					];
+				}
+
+				TicTacToeBoard.prototype.getCell = function(x, y) {
+					return this.board[x][y];
+				};
+
+				TicTacToeBoard.prototype.setCell = function(x, y, value) {
+					this.board[x][y] = value;
+				};
+
+				return TicTacToeBoard;
+			})();
+
 			var TicTacToeApp = angular.module("AngularTicTacToe", []);
 			TicTacToeApp.controller("TicTacToeController", function($scope) {
-				$scope.board = {
-					"topLeft": "O",
-					"topMiddle": "X",
-					"topRight": "",
-					"middleLeft": "X",
-					"middleMiddle": "O",
-					"middleRight": "X",
-					"bottomLeft": "",
-					"bottomMiddle": "X",
-					"bottomRight": "O"
-				};
+				$scope.board = new TicTacToeBoard();
 			});
 		</script>
 	</body>
