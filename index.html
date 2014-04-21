@@ -12,7 +12,7 @@
 				<div class="row" id="middleRow"><div class="cell" data-ng-click="cellClick(1,0)">{{board.getCell(1,0)}}</div><div class="cell" data-ng-click="cellClick(1,1)">{{board.getCell(1,1)}}</div><div class="cell" data-ng-click="cellClick(1,2)">{{board.getCell(1,2)}}</div></div>
 				<div class="row" id="bottomRow"><div class="cell" data-ng-click="cellClick(2,0)">{{board.getCell(2,0)}}</div><div class="cell" data-ng-click="cellClick(2,1)">{{board.getCell(2,1)}}</div><div class="cell" data-ng-click="cellClick(2,2)">{{board.getCell(2,2)}}</div></div>
 			<div>
-			<div><span ng-show="!board.isGameOver()">{{player[currentPlayer] || currentPlayer}}'s turn</span><span ng-show="board.isGameOver()">Game over!</span></div>
+			<div><span ng-show="!board.isGameOver()">{{player[currentPlayer] || currentPlayer}}'s turn</span><span ng-show="board.isGameOver()">Game over! <button data-ng-click="newGame()">New game</button></span></div>
 		</section>
 		<script src="js/angular.min.js"></script>
 		<script>
@@ -27,6 +27,10 @@
 					];
 					this.winner = null;
 				}
+
+				TicTacToeBoard.prototype.reset = function() {
+					TicTacToeBoard.call(this);
+				};
 
 				TicTacToeBoard.prototype.getCell = function(x, y) {
 					return this.board[x][y];
@@ -177,6 +181,10 @@
 							alert(($scope.player[winner] || winner) + " won!");
 						}
 					}
+				};
+
+				$scope.newGame = function() {
+					$scope.board.reset();
 				};
 			});
 		</script>
