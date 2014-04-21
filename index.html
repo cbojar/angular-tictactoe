@@ -6,12 +6,13 @@
 	</head>
 	<body>
 		<section data-ng-controller="TicTacToeController">
+			<div>Player X: <input ng-model="player.X" /> | Player O: <input ng-model="player.O" /></div>
 			<div id="gameBoard">
 				<div class="row" id="topRow"><div class="cell" data-ng-click="cellClick(0,0)">{{board.getCell(0,0)}}</div><div class="cell" data-ng-click="cellClick(0,1)">{{board.getCell(0,1)}}</div><div class="cell" data-ng-click="cellClick(0,2)">{{board.getCell(0,2)}}</div></div>
 				<div class="row" id="middleRow"><div class="cell" data-ng-click="cellClick(1,0)">{{board.getCell(1,0)}}</div><div class="cell" data-ng-click="cellClick(1,1)">{{board.getCell(1,1)}}</div><div class="cell" data-ng-click="cellClick(1,2)">{{board.getCell(1,2)}}</div></div>
 				<div class="row" id="bottomRow"><div class="cell" data-ng-click="cellClick(2,0)">{{board.getCell(2,0)}}</div><div class="cell" data-ng-click="cellClick(2,1)">{{board.getCell(2,1)}}</div><div class="cell" data-ng-click="cellClick(2,2)">{{board.getCell(2,2)}}</div></div>
 			<div>
-			<div><span ng-show="!board.isGameOver()">{{currentPlayer}}'s turn</span><span ng-show="board.isGameOver()">Game over!</span></div>
+			<div><span ng-show="!board.isGameOver()">{{player[currentPlayer] || currentPlayer}}'s turn</span><span ng-show="board.isGameOver()">Game over!</span></div>
 		</section>
 		<script src="js/angular.min.js"></script>
 		<script>
@@ -154,6 +155,7 @@
 				$scope.board = new TicTacToeBoard();
 				$scope.currentPlayer = "X";
 				$scope.nextPlayer = "O";
+				$scope.player = $scope.player || { "X": "", "O": "" };
 
 				$scope.cellClick = function(x, y) {
 					if($scope.board.isGameOver()) {
@@ -171,7 +173,8 @@
 						if($scope.board.isTie()) {
 							alert("Tie game!");
 						} else {
-							alert($scope.board.getWinner() + " won!");
+							var winner = $scope.board.getWinner();
+							alert(($scope.player[winner] || winner) + " won!");
 						}
 					}
 				};
