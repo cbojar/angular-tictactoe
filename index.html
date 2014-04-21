@@ -11,6 +11,7 @@
 				<div class="row" id="middleRow"><div class="cell" data-ng-click="cellClick(1,0)">{{board.getCell(1,0)}}</div><div class="cell" data-ng-click="cellClick(1,1)">{{board.getCell(1,1)}}</div><div class="cell" data-ng-click="cellClick(1,2)">{{board.getCell(1,2)}}</div></div>
 				<div class="row" id="bottomRow"><div class="cell" data-ng-click="cellClick(2,0)">{{board.getCell(2,0)}}</div><div class="cell" data-ng-click="cellClick(2,1)">{{board.getCell(2,1)}}</div><div class="cell" data-ng-click="cellClick(2,2)">{{board.getCell(2,2)}}</div></div>
 			<div>
+			<div><span ng-show="!board.isGameOver()">{{currentPlayer}}'s turn</span><span ng-show="board.isGameOver()">Game over!</span></div>
 		</section>
 		<script src="js/angular.min.js"></script>
 		<script>
