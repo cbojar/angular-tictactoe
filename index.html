@@ -14,6 +14,26 @@
 			<div>
 			<div><span ng-show="!board.isGameOver()">{{player[currentPlayer] || currentPlayer}}'s turn</span><span ng-show="board.isGameOver()">Game over! <button data-ng-click="newGame()">New game</button></span></div>
 		</section>
+		<section data-ng-controller="GameHistoryController">
+			<table border="1">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Player X</th>
+						<th>?</th>
+						<th>Player O</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr data-ng-repeat="game in games">
+						<td>{{$index + 1}}</td>
+						<td>{{game.player.X || "X"}}</td>
+						<td>{{game.winner}}</td>
+						<td>{{game.player.O || "O"}}</td>
+					</tr>
+				</tbody>
+			<table>
+		</section>
 		<script src="js/angular.min.js"></script>
 		<script>
 			"use strict";
@@ -155,7 +175,11 @@
 			})();
 
 			var TicTacToeApp = angular.module("AngularTicTacToe", []);
-			TicTacToeApp.controller("TicTacToeController", function($scope) {
+			TicTacToeApp.factory("GameHistory", function() {
+				return [];
+			});
+
+			TicTacToeApp.controller("TicTacToeController", function($scope, GameHistory) {
 				$scope.board = new TicTacToeBoard();
 				$scope.currentPlayer = "X";
 				$scope.nextPlayer = "O";
@@ -176,9 +200,11 @@
 					if($scope.board.isGameOver()) {
 						if($scope.board.isTie()) {
 							alert("Tie game!");
+							GameHistory.push({"player": {"X": $scope.player.X, "O": $scope.player.O}, "winner": "Tie"});
 						} else {
 							var winner = $scope.board.getWinner();
 							alert(($scope.player[winner] || winner) + " won!");
+							GameHistory.push({"player": {"X": $scope.player.X, "O": $scope.player.O}, "winner": winner});
 						}
 					}
 				};
@@ -186,6 +212,10 @@
 				$scope.newGame = function() {
 					$scope.board.reset();
 				};
+			});
+
+			TicTacToeApp.controller("GameHistoryController", function($scope, GameHistory) {
+				$scope.games = GameHistory;
 			});
 		</script>
 	</body>
